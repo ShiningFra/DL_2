@@ -1,0 +1,10 @@
+artifact_location: file:///D:/Workspace/DL/workspace/mlruns/0/models/m-fd686284af5d4fe29c01322fa6d033e0/artifacts
+creation_timestamp: 1761992952754
+experiment_id: '0'
+last_updated_timestamp: 1761993074331
+model_id: m-fd686284af5d4fe29c01322fa6d033e0
+model_type: null
+name: mnist-model-Adam
+source_run_id: e6ac9b87006c42d68900e765e97b4c17
+status: 2
+status_message: null

@@ -4,47 +4,89 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
+# Hyperparamètres globaux
 EPOCHS = 5
 BATCH_SIZE = 128
 DROPOUT_RATE = 0.2
+L2_LAMBDA = 0.001
 
-#Lancement de la session de suivi MLflow
-with mlflow.start_run():
-	#Enregistrement des param tres
-	mlflow.log_param("epochs", EPOCHS)
-	mlflow.log_param("batch_size", BATCH_SIZE)
-	mlflow.log_param("dropout_rate", DROPOUT_RATE)
-
-#Chargement du jeu de donnees MNIST
+# Chargement du jeu de données MNIST
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
-#Normalisation des donnees
+# Séparation en training / validation (90% / 10%)
+x_val = x_train[54000:]
+y_val = y_train[54000:]
+x_train = x_train[:54000]
+y_train = y_train[:54000]
+
+# Normalisation et mise en forme
 x_train = x_train.astype("float32") / 255.0
+x_val = x_val.astype("float32") / 255.0
 x_test = x_test.astype("float32") / 255.0
 
-#Redimensionnement des images pour les reseaux fully-connected
-x_train = x_train.reshape(60000, 784)
-x_test = x_test.reshape(10000, 784)
+x_train = x_train.reshape((x_train.shape[0], 784))
+x_val = x_val.reshape((x_val.shape[0], 784))
+x_test = x_test.reshape((x_test.shape[0], 784))
 
-#Construction du modele
-model = keras.Sequential([keras.layers.Dense(512, activation='relu', input_shape=(784,)), keras.layers.Dropout(0.2), keras.layers.Dense(10, activation='softmax')])
+# Liste des optimiseurs à comparer
+optimizers = {
+    "SGD_with_momentum": keras.optimizers.SGD(learning_rate=0.01, momentum=0.9),
+    "RMSprop": keras.optimizers.RMSprop(learning_rate=0.001),
+    "Adam": keras.optimizers.Adam(learning_rate=0.001)
+}
 
-#Compilation du modele
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+# Fonction pour créer le modèle avec régularisation et batch normalization
+def create_model():
+    model = keras.Sequential([
+        keras.layers.Dense(512, activation='relu', input_shape=(784,),
+                           kernel_regularizer=keras.regularizers.l2(L2_LAMBDA)),
+        keras.layers.BatchNormalization(),
+        keras.layers.Dropout(DROPOUT_RATE),
+        keras.layers.Dense(10, activation='softmax')
+    ])
+    return model
 
-#Entrainement du modele
-history = model.fit(x_train, y_train, epochs=5, batch_size=128, validation_split=0.1)
+# Boucle d’expériences MLflow
+for opt_name, optimizer in optimizers.items():
+    with mlflow.start_run(run_name=f"Optimizer_Comparison_{opt_name}"):
+        print(f"\n🔹 Entraînement avec optimiseur : {opt_name}")
 
-#evaluation du modele
-test_loss, test_acc = model.evaluate(x_test, y_test)
-print(f"Precision sur les donnees de test: {test_acc:.4f}")
+        # Création du modèle
+        model = create_model()
 
-#Sauvegarde du modele
-model.save("mnist_model.h5")
-print(" Modele sauvegarde sous mnist_model.h5")
+        # Compilation
+        model.compile(optimizer=optimizer,
+                      loss='sparse_categorical_crossentropy',
+                      metrics=['accuracy'])
 
-#Enregistrement des metriques
-mlflow.log_metric("test_accuracy", test_acc)
+        # Enregistrement des paramètres dans MLflow
+        mlflow.log_param("optimizer", opt_name)
+        mlflow.log_param("epochs", EPOCHS)
+        mlflow.log_param("batch_size", BATCH_SIZE)
+        mlflow.log_param("dropout_rate", DROPOUT_RATE)
+        mlflow.log_param("l2_lambda", L2_LAMBDA)
 
-#Enregistrement du mod le complet
-mlflow.keras.log_model(model, "mnist-model")
+        # Entraînement du modèle
+        history = model.fit(
+            x_train, y_train,
+            epochs=EPOCHS,
+            batch_size=BATCH_SIZE,
+            validation_data=(x_val, y_val),
+            verbose=2
+        )
+
+        # Évaluation sur les données de test
+        test_loss, test_acc = model.evaluate(x_test, y_test, verbose=0)
+        print(f"✅ Précision sur les données de test ({opt_name}): {test_acc:.4f}")
+
+        # Log des métriques
+        mlflow.log_metric("test_accuracy", test_acc)
+        mlflow.log_metric("test_loss", test_loss)
+
+        # Sauvegarde du modèle et du run
+        model_path = f"mnist_model_{opt_name}.h5"
+        model.save(model_path)
+        mlflow.log_artifact(model_path)
+        mlflow.keras.log_model(model, f"mnist-model-{opt_name}")
+
+print("\nEntraînements terminés pour tous les optimiseurs !")

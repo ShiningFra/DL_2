@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/e6ac9b87006c42d68900e765e97b4c17/artifacts
+end_time: 1761993074563
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e6ac9b87006c42d68900e765e97b4c17
+run_name: Optimizer_Comparison_Adam
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761992764161
+status: 3
+tags: []
+user_id: Roddier

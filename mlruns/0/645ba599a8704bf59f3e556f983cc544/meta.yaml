@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/645ba599a8704bf59f3e556f983cc544/artifacts
+end_time: 1761992764052
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 645ba599a8704bf59f3e556f983cc544
+run_name: Optimizer_Comparison_RMSprop
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761992478653
+status: 3
+tags: []
+user_id: Roddier

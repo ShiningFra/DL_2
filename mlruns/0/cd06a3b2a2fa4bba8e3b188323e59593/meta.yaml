@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/cd06a3b2a2fa4bba8e3b188323e59593/artifacts
+end_time: 1760178563397
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cd06a3b2a2fa4bba8e3b188323e59593
+run_name: ambitious-dog-90
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760178562694
+status: 3
+tags: []
+user_id: Roddier

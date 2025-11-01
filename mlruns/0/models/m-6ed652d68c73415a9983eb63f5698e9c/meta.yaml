@@ -1,0 +1,10 @@
+artifact_location: file:///D:/Workspace/DL/workspace/mlruns/0/models/m-6ed652d68c73415a9983eb63f5698e9c/artifacts
+creation_timestamp: 1761992390232
+experiment_id: '0'
+last_updated_timestamp: 1761992478474
+model_id: m-6ed652d68c73415a9983eb63f5698e9c
+model_type: null
+name: mnist-model-SGD_with_momentum
+source_run_id: 5e55df1b7b314c83a3d1872c7309468a
+status: 2
+status_message: null

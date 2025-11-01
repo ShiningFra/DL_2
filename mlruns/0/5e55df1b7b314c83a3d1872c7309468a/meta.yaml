@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/5e55df1b7b314c83a3d1872c7309468a/artifacts
+end_time: 1761992478565
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5e55df1b7b314c83a3d1872c7309468a
+run_name: Optimizer_Comparison_SGD_with_momentum
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761992243183
+status: 3
+tags: []
+user_id: Roddier

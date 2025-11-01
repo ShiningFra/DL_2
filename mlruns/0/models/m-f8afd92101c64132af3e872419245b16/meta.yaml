@@ -1,0 +1,10 @@
+artifact_location: file:///D:/Workspace/DL/workspace/mlruns/0/models/m-f8afd92101c64132af3e872419245b16/artifacts
+creation_timestamp: 1761992649856
+experiment_id: '0'
+last_updated_timestamp: 1761992763927
+model_id: m-f8afd92101c64132af3e872419245b16
+model_type: null
+name: mnist-model-RMSprop
+source_run_id: 645ba599a8704bf59f3e556f983cc544
+status: 2
+status_message: null

@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/16ab527fe4664abd8f476126b5ea7b2b/artifacts
+end_time: 1760178261116
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 16ab527fe4664abd8f476126b5ea7b2b
+run_name: thundering-snail-936
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760178260397
+status: 3
+tags: []
+user_id: Roddier

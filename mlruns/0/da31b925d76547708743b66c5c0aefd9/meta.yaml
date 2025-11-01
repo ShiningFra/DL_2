@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/Workspace/DL/workspace/mlruns/0/da31b925d76547708743b66c5c0aefd9/artifacts
+end_time: 1761988505228
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: da31b925d76547708743b66c5c0aefd9
+run_name: dashing-carp-177
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761988504705
+status: 3
+tags: []
+user_id: Roddier
